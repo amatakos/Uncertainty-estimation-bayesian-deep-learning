@@ -134,12 +134,11 @@ args = parser.parse_args()
 
 # This code snippet manually places the working dir at the project's root directory.
 if args.location == 'local':
-    #path = 'C:/Users/Administrator/Documents/Alex/Master/Internship/github/InternshipMatakos/'
-    path = '/home/alex/work/internship/'
+    path = '/home/alex/work/internship/'        # change this
     os.chdir(path)
-elif args.location == 'cluster':
-    path = '/scratch/work/matakoa2/github/InternshipMatakos/'
-    os.chdir(path)
+#elif args.location == 'cluster':
+#    path = ''
+#    os.chdir(path)
 else:
     raise ValueError("Please specify either --loc='local' for local use or --loc='cluster' for use on the cluster'.")
 
