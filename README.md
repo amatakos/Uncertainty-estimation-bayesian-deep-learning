@@ -9,5 +9,7 @@ Follow the instructions at 'installation instructions.txt'. Requires miniconda a
 ## Usage
 
 Run 
+
 ```python run.py <args>``` 
+
 from root directory. 
