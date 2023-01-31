@@ -1,4 +1,4 @@
-https://github.com/amatakos/Uncertainty-estimation-bayesian-deep-learning
+git clone https://github.com/amatakos/Uncertainty-estimation-bayesian-deep-learning
 cd UncertaintyEstimationBayesianDeepLearning
 conda create --name bdl
 conda activate bdl
