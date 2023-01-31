@@ -16,7 +16,7 @@ from root directory. For example, we can create a Bayesian Neural Network with 2
 
 ```python run.py -d airfoil -net 128 32 -a sigmoid -i laplace -ps 10000 -dv cpu```
 
-(note, that you need to modify the args.location parameter in the run.py script to point to the repo's root directory)
+(note, that you need to modify the args.location parameter in the run.py script to point to the repo's root directory). Run ```python run.py -h``` for further instructions on how to provide arguments to the script.
 
 ## Results
 
