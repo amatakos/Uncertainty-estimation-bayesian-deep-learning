@@ -43,7 +43,7 @@ Average loss: 0.0004789172
 Total loss: 0.1446329877
 ```
 
-The Negative Log-Predictive Density (NLPD) is a metric that tells us how 'certain' or 'uncertain' the predictions of the BNN are. For these regression tasks it allows us to compare various NN architectures or Posterior approximation methods.
+The Negative Log-Predictive Density (NLPD) is a metric that tells us how 'certain' or 'uncertain' the predictions of the BNN are. It allows us to compare various NN architectures or Posterior approximation methods.
 
 ## Contents
 
