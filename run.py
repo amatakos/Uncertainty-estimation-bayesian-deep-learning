@@ -28,19 +28,18 @@ from src.model import MLP, GaussianMixtureMLP, DeepEnsembleClassification
 
 
 # Set up argparse
-parser = argparse.ArgumentParser(description='Argparse demo', formatter_class=RawTextHelpFormatter)
+parser = argparse.ArgumentParser(description='Python script to create, train and evaluate a Bayesian Neural Network.', formatter_class=RawTextHelpFormatter)
 
 # Required arguments
 # Dataset
-parser.add_argument('-d', '--dataset', type=str, metavar='', required=True,
-                    help="{'boston', 'airfoil', } \nDataset to use.")
+parser.add_argument('-d', '--dataset', type=str, metavar='', required=False,
+                    help="{'boston', 'airfoil', }\nDataset to use.")
 # Inference
-parser.add_argument('-i', '--inference', type=str, metavar='', required=True,
+parser.add_argument('-i', '--inference', type=str, metavar='', required=False,
                     help="{'MCMC', 'MFVI', 'laplace', 'ensemble'}\nInference method for approximation of the posterior.")
 
-# Optional arguments (with default settings)
 
-# Most common arguments
+# Optional arguments (with default settings)
 # Network
 parser.add_argument('-net', '--network', type=int, nargs='+', metavar='', default=[64, ], required=False,
                     help='[layer_1, layer_2, ...], default=[64,] \nNeural Network architecture, eg. -net 100 30 10 is 3-layered NN with 100, 30, 10 units.')
@@ -61,7 +60,7 @@ parser.add_argument('-v', '--verbose', type=int, metavar='', default=0, required
 parser.add_argument('-a', '--activation', type=str, metavar='', default='relu', required=False,
                     help="{'relu', 'tanh', 'sigmoid'}, default='relu' \nActivation function used in the network.")
 # Batch norm
-parser.add_argument('--batch_norm', default=True, action='store_true',
+parser.add_argument('--batch_norm', default=True, action='store_true', required=False,
                     help="{True, False}, default=True \nWhether to apply batch normalization after each layer.")
 parser.add_argument('--no_batch_norm', dest='batch_norm', action='store_false')
 # Batch size
@@ -78,7 +77,7 @@ parser.add_argument('-lr', '--learning_rate', type=float, metavar='', default=1e
                     help="default=1e-4 \nLearning rate.")
 # Weight decay
 parser.add_argument('-wd', '--weight_decay', type=float, metavar='', default=1e-5, required=False,
-                    help="default=1e-5 \nWeight decay for Adam optimizer. ")
+                    help="default=1e-5 \nWeight decay for Adam optimizer.")
 # Prior
 parser.add_argument('-p', '--prior', type=str, metavar='', default='IID', required=False,
                     help="{'IID', }, default='IID' \nPrior distribution of the weights. Used for HMC, NUTS, VI, laplace.")
@@ -128,20 +127,20 @@ parser.add_argument('-pre', '--pretrained', type=bool, metavar='', default=False
 parser.add_argument('--rounded', type=int, metavar='', default=10, required=False,
                     help="default=10 \nNumber of rounding digits for printed results.")
 
-# Parse args
+# Parse args'Python script to create, train and evaluate a Bayesian Neural Network.'
 args = parser.parse_args()
 
 
 # This code snippet manually places the working dir at the project's root directory.
+
 if args.location == 'local':
-    path = '/home/alex/work/internship/'        # change this
+    path = '/home/alex/work/internship/Uncertainty-estimation-bayesian-deep-learning'
     os.chdir(path)
-#elif args.location == 'cluster':
-#    path = ''
-#    os.chdir(path)
+elif args.location == 'cluster':
+    path = ''
+    os.chdir(path)
 else:
     raise ValueError("Please specify either --loc='local' for local use or --loc='cluster' for use on the cluster'.")
-
 
 # Set seed
 args.seed = npr.randint(10000) if args.seed == 'random' else seeds[args.dataset]
@@ -277,19 +276,19 @@ def main(args):
         if args.batch_norm == True:
             print("Laplace library does not support NNs with BatchNorm layers. \nSwitching to an equivalent NN without batch norm instead.")
             args.batch_norm = False
-        
+
         net = MLP(n_features, n_classes, args.network, args.activation, batch_norm=args.batch_norm).to(device)
         optimizer = torch.optim.Adam(net.parameters(), lr=args.learning_rate, weight_decay=args.weight_decay)
-        
+
         if args.verbose > 0:
             print("Training the model with standard SGD")
-        
+
         fit(net, loss_function, optimizer, train_loader,
             n_epochs=args.n_epochs, verbose=args.verbose, early_stopping=args.early_stopping)
-        
+
         if args.verbose > 0:
             print("Finished the training, moving on to post-hoc Laplace approximation.")
-        
+
         # Post-hoc Laplace
         bnn = laplace_model(net, problem_type,
                      subset_of_weights=args.subset_of_weights,
@@ -297,14 +296,14 @@ def main(args):
                      sigma_noise=args.sigma_noise_laplace)
         bnn.fit(train_loader)
         bnn.optimize_prior_precision(method='marglik')
-        
-        
-        
+
+
+
     ##################################################### Deep Ensemble #################################################
 
     elif 'ensemble' in args.inference.lower():
 
-        gmm = GaussianMixtureMLP(args.n_models, n_features, n_classes, args.network, 
+        gmm = GaussianMixtureMLP(args.n_models, n_features, n_classes, args.network,
                                  args.activation, args.batch_norm).to(device)
         gmm_optimizers = []
         for m in range(gmm.n_models):
@@ -358,3 +357,4 @@ def main(args):
 
 if __name__ == "__main__":
     main(args)
+
