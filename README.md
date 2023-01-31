@@ -4,7 +4,7 @@ This project was developed during my summer internship in Prof. Arno Solin's Mac
 
 ## Installation
 
-Follow the instructions at 'installation instructions.txt'. Requires miniconda and python3.
+Follow the instructions at installation instructions.txt. Requires miniconda and python3.
 
 ## Usage
 
