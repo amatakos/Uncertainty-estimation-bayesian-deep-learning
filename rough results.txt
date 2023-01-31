@@ -1,0 +1,17 @@
+relu
+		train	test
+airfoil	
+boston
+concrete
+
+tanh
+		train		test		OOD
+airfoil		-0.59+-4.63	-0.38+-4.60	105 +- 235
+boston		0.29+-16.65	1.10+-8.79	80 +- 226
+concrete	-0.79+-4.15	5.78+-26.8	35 +- 110
+
+abs
+		train		test		OOD
+airfoil		-0.91+-3.57	-0.02+-7.51	80 +- 191
+boston		-1.09+-6.67	5.47+-40.24	100 +- 220
+concrete	-0.73+-4.34	6.28+-27.97	82 +- 263

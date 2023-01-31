@@ -1,0 +1,12 @@
+name: internship
+channels:
+  - conda-forge
+  - defaults
+  - pytorch
+  - anaconda
+dependencies:
+  - numpy
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - torchmetrics

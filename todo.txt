@@ -1,0 +1,3 @@
+in evaluate_regr(), bnn doesn't have attribute model.hidden_layers. Implement it in a src/inference/bnn.py script
+
+MCMC not working for tanh!! :/
