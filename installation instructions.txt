@@ -1,8 +1,7 @@
-git clone https://github.com/amatakos/UncertaintyEstimationBayesianDeepLearning.git
+https://github.com/amatakos/Uncertainty-estimation-bayesian-deep-learning
 cd UncertaintyEstimationBayesianDeepLearning
-module load miniconda
-conda create env --name internship_ver_2
-source activate internship_ver_2
+conda create --name bdl
+conda activate bdl
 pip install laplace-torch
 git submodule add https://github.com/TyXe-BDL/TyXe
 cd TyXe
