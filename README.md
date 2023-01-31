@@ -47,11 +47,11 @@ The Negative Log-Predictive Density (NLPD) is a metric that tells us how 'certai
 
 ## Contents
 
-```src:``` Contains source code for creating and training NNs, testing and evaluation routines, metrics.
+```src:```source code for creating and training NNs, testing and evaluation routines, metrics.
 
-```data:``` Contains datasets
+```data:```datasets
 
-```notebooks:``` Contains preprocessing of datasets, examples with comments and plots for each type of inference
+```notebooks:```preprocessing of datasets, examples with comments and plots for each type of inference
 
 ## Authors
 
